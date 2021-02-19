@@ -3,7 +3,7 @@ name: default
 
 steps:
   - name: run-test-cases
-    image: newtonschool/cypress-test
+    image: cypress/included:6.2.1
     when:
       status:
         - failure
@@ -17,7 +17,7 @@ steps:
       - echo ${TEST_CASES} > test_case_temp_file
       - sed -i "s/ /+/g" test_case_temp_file
       - base64 --decode ./test_case_temp_file > cypress/integration/index.specs.js
-      - node CreateJSFile.js
+      - npm install mochawesome
       - npm install
       - npm test
   - name: result
